@@ -1,42 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Link, Route, Switch, Redirect } from 'react-router-dom';
-import { Action } from './Action';
+import { GenrePageComponent } from './GenrePageComponent';
+import { MovieDetail } from './MovieDetail';
 
 
 function App() {
+  const [genres] = useState(["action", "drama", "comedy", "thriller"])
   return (
     <Router>
-      <div >
-        <h1>Choose Category:</h1>
+      <header>
         <nav>
+          <Link to='/'>
+            <img src="https://www.inpixon.com/hubfs/INPX-Logo-II-White.svg" alt="inpixon white logo" />
+          </Link>
           <ul>
-            <li>
-              <Link to="/action">Action</Link>
-            </li>
-            <li>
-              <Link to="/comedy">Comedy</Link>
-            </li>
-            <li>
-              <Link to="/thriller">Thriller</Link>
-            </li>
-            <li>
-              <Link to="/drama">Drama</Link>
-            </li>
+            {
+              genres.map((genre, i) => {
+                return (
+                  <li key={i}>
+                    <Link to={`/${genre}`} >{genre}</Link>
+                  </li>
+                )
+              })
+            }
           </ul>
         </nav>
-
+      </header>
+      <main className="main">
         <Switch>
-          <Redirect exact from="/" to="/action" />
-          <Route exact path="/action" render={(props) => <Action {...props} genre="action" />} />
-          <Route exact path="/comedy" render={(props) => <Action {...props} genre="comedy" />} />
-          <Route exact path="/drama" render={(props) => <Action {...props} genre="drama" />} />
-          <Route exact path="/thriller" render={(props) => <Action {...props} genre="thriller" />} />
+          {genres.map((genre, i) => <Route key={i} exact path={`/${genre}`} render={(props) => <GenrePageComponent {...props} genre={genre} />} />)}
+          {genres.map((genre, i) => <Route key={i} exact path={`/${genre}/:movieID`} render={(props) => <MovieDetail {...props} genre={genre} />} />)}
+          <Redirect from="/" to={`/${genres[0]}`} />
         </Switch>
+      </main>
 
-
-
-      </div >
-    </Router>
+    </Router >
   )
 }
 
