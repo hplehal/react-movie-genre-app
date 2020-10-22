@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const Pagination = ({ totalMovies, pageLimit, paginate }) => {
+const Pagination = ({ totalMovies, pageLimit, paginate }) => {
     const pageNumber = [];
 
     for (let i = 1; i <= Math.ceil(totalMovies / pageLimit); i++) {
@@ -8,20 +8,21 @@ export const Pagination = ({ totalMovies, pageLimit, paginate }) => {
     }
 
     return (
-        <section>
+        <section className="pagination">
             <ul>
                 {
+                    pageNumber.length > 1 &&
                     pageNumber.map(pageNum => {
                         return (
-                            <li key={pageNum}>
-                                <a href="!#" onClick={() => paginate(pageNum)}>
-                                    {pageNum}
-                                </a>
+                            <li key={pageNum} onClick={() => paginate(pageNum)}>
+                                {pageNum}
                             </li>
                         )
                     })
                 }
             </ul>
-        </section>
+        </section >
     )
 }
+
+export default Pagination;

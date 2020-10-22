@@ -1,28 +1,27 @@
 // Movie
-// export const movieGenres = (genres) => {
-//     return {
-//         type: 'MOVIE_GENRE',
-//         payload: genres
-//     }
-// }
-
 export const movieSelectedRequest = (movie) => {
     return {
         type: 'MOVIE_SELECTED_FETCH',
-        payload: movie
+        payload: {
+            movie
+        }
     }
 }
 
 export const movieSelectedSuccess = (movie) => {
     return {
         type: 'MOVIE_SELECTED_FETCH_SUCCESS',
-        payload: movie
+        payload: {
+            movie
+        }
     }
 }
-export const movieSelectedFailure = (moiveID, movie) => {
+export const movieSelectedFailure = (error) => {
     return {
         type: 'MOVIE_SELECTED_FETCH_FAILED',
-        payload: movie
+        payload: {
+            error
+        }
     }
 }
 
@@ -54,6 +53,48 @@ export const fetchMoviesFailed = (error) => {
     }
 }
 
+// @param movies and value this will sort the value 
+export const sortMovies = (movies, value) => (dispatch) => {
+    let moviesData = [];
+    if ('sortAtoZ' === value) {
+        moviesData = movies.slice().sort((a, b) => {
+            let titleA = a.Title.toLowerCase()
+            let titleB = b.Title.toLowerCase();
+            if (titleA < titleB) return -1;
+            if (titleA > titleB) return 1;
+            return 0;
+        })
+    } else if ('sortByRatings' === value) {
+        moviesData = movies.slice().sort((a, b) => {
+            return b.imdbRating - a.imdbRating;
+        })
+
+    } else if ('sortByPopularity' === value) {
+        moviesData = movies.slice().sort((a, b) => {
+            let votesA = parseInt(a.imdbVotes.replace(/,/g, ''), 10);
+            let votesB = parseInt(b.imdbVotes.replace(/,/g, ''), 10);;
+            return votesB - votesA;
+        })
+
+    } else if ('sortByRelease' === value) {
+        moviesData = movies.slice().sort((a, b) => {
+            let dateA = new Date(a.Released);
+            let dateB = new Date(b.Released);
+            return dateB - dateA;
+        })
+    }
+
+    return dispatch({
+        type: 'SORT_MOVIES',
+        payload: {
+            movies: moviesData
+        }
+    })
+}
+
+
+
+//  @param genre to fetch Movies data
 export const fetchMoviesData = (genre) => async dispatch => {
     dispatch(fetchMoviesRequest(genre));
     try {
@@ -65,13 +106,14 @@ export const fetchMoviesData = (genre) => async dispatch => {
     }
 }
 
+//  @param movieID & genre to fetch Movie data
 export const fetchMovieSelected = (movieID, genre) => async dispatch => {
-    dispatch(fetchMoviesRequest(genre, movieID));
+    dispatch(movieSelectedRequest(genre, movieID));
     try {
         const response = await fetch(`http://localhost:8000/${genre}?imdbID=${movieID}`);
-        const movie = await response.json();
-        dispatch(fetchMoviesSuccess(movie[0]));
+        const movies = await response.json();
+        dispatch(movieSelectedSuccess(movies[0]));
     } catch (error) {
-        dispatch(fetchMoviesFailed(error))
+        dispatch(movieSelectedFailure(error))
     }
 }

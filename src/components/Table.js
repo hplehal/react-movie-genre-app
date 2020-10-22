@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 
-export const Table = ({ movies }) => {
+const Table = ({ movies }) => {
     return (
-        <div>
+        <div className="table">
             <table>
                 <thead>
                     <tr>
@@ -31,3 +31,5 @@ export const Table = ({ movies }) => {
         </div>
     )
 }
+
+export default Table;

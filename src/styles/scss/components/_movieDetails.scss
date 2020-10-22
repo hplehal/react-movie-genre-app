@@ -1,0 +1,30 @@
+.movieDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 65px 30px 30px;
+    height: 75vh;
+    text-align: center;
+    h2{
+        font-size: 4rem;
+        font-weight: bold;
+        color: $darkBlue;
+        @include responsiveMedia(tablet){
+            font-size: 3rem;
+        }
+    }
+    p{  
+        font-size: 1.7rem;
+        color: $darkBlue;
+    }
+    @include responsiveMedia(tablet){
+        height: 100vh;
+    }
+}
+
+.imgContainer {
+    display:flex;
+    justify-content: center;
+    width: 50vw;
+}

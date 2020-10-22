@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 
-export const MovieList = ({ movies, genre }) => {
+const MovieList = ({ movies, genre }) => {
     return (
         <section className="movieList">
             {
@@ -15,7 +15,6 @@ export const MovieList = ({ movies, genre }) => {
                                     <h3>{data.Title}</h3>
                                     <p>({data.Year})</p>
                                 </div>
-
                             </Link>
                         </div>
                     )
@@ -24,3 +23,5 @@ export const MovieList = ({ movies, genre }) => {
         </section>
     )
 }
+
+export default MovieList;

@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { connect } from "react-redux";
-import { Header } from '../components/Header';
-import { MainRouter } from '../components/MainRouter';
+import Header from '../components/Header';
+import MainRouter from '../components/MainRouter';
 
 
-function App({ genres }) {
-  // const [genres] = useState(["action", "drama", "comedy", "thriller"]);
+const App = ({ genres }) => {
   return (
     <Router>
       <Header genres={genres} />
