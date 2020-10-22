@@ -4,8 +4,8 @@
     justify-content: center;
 }
 .movieContent {
-    width: 25vw;
-    margin-bottom: 25px;
+    width: 25%;
+    margin: 25px;
     display: flex;
     text-align: center;
     justify-content: center;
@@ -13,7 +13,7 @@
     a{
         color: $darkBlue;
         font-weight: 500;
-        max-width: 20vw;
+        width: 100%;
         box-shadow: 0px 2px 15px 0 rgba(0, 0, 0, 0.2);
         display: flex;
         flex-direction: column;
@@ -41,28 +41,32 @@
     }
 }
 
-nav{
-    background-color: $grey;
+.genreHeader {
     display: flex;
-    padding:15px;
-    flex-direction: row;
-    justify-content: space-around;
-    a{
-        width: 20vw;
-        font-size: 1.6rem;
-        color:white;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 50px 0 30px;
+    h2{
+        font-size: 4rem;
+        font-weight: bold;
         text-transform: capitalize;
+        color: $lightBlue;
+    }
+    div{
+        display: flex;
+        justify-content: space-between;
+        width: 30%;
+        margin-top: 25px;
+    }
+    button {
+        color: $darkBlue;
+        padding: 5px 30px;
+        border: 2px solid $darkBlue;
+        background: none;
         &:hover, &:focus {
             color: $lightBlue;
-        }
-    }
-    ul{
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        li{
-            margin-left: 30px;
+            border: 2px solid $lightBlue;
         }
     }
 }

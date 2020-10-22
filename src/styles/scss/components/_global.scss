@@ -7,3 +7,29 @@ main {
     width: 90vw;
     margin: 0 auto;
 }
+
+nav{
+    background-color: $grey;
+    display: flex;
+    padding:15px;
+    flex-direction: row;
+    justify-content: space-around;
+    a{
+        width: 20vw;
+        font-size: 1.6rem;
+        color:white;
+        text-transform: capitalize;
+        &:hover, &:focus {
+            color: $lightBlue;
+        }
+    }
+    ul{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        li{
+            margin-left: 30px;
+        }
+    }
+}
